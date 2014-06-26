@@ -1204,7 +1204,7 @@ class simplecertificate {
      * @param stdClass $issuecert Issued certificate object
      * @return mixed <stored_file, boolean>
      */
-    protected function get_issue_file(stdClass $issuecert) {
+    public function get_issue_file(stdClass $issuecert) {
         if (!empty($issuecert->haschange)) {
             return $this->save_pdf($issuecert);
         }
@@ -1338,13 +1338,13 @@ class simplecertificate {
         $a->address = $user->address;
         $a->city = $user->city;
         
-        //Add userimage url, does not work in PHPUnit test
-        
-        if (!PHPUNIT_TEST) {
+        //Add userimage url (Don't work in PHPUNIT tests);
+        if (!PHPUNIT_TEST){
             $a->userimage = $OUTPUT->user_picture($user, array('size' => 1, 'popup' => false));
         } else {
             $a->userimage = "Don't work in test";
         }
+        
         
         if (!empty($user->country)) {
             $a->country = get_string($user->country, 'countries');
